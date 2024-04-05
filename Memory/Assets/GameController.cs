@@ -30,8 +30,8 @@ public class GameController : MonoBehaviour
     private Text turncoutner;
     public void Start()
     {
-        canperformturn = true;
         graceturn = true;
+        canperformturn = true;
         memory = null;
         prefab = Resources.Load<GameObject>("Prefabs/Card");
         prefab2 = Resources.Load<GameObject>("Prefabs/CollecedCard");
@@ -123,6 +123,7 @@ public class GameController : MonoBehaviour
     }
     public void Match(string id, int index)
     {
+        bool correctmatch = false;
         if(canperformturn)
         {
             switch(memory)
@@ -153,26 +154,15 @@ public class GameController : MonoBehaviour
                    switch(multiplayer)
                    {
                        case true:
-
+                       correctmatch = true;
                        switch(playerturn)
                        {
                            case 0:
-                              tempcard.transform.SetParent(cardcollection1);
-                              playerturn -= 1; 
-
-                              if(!graceturn)
-                              {
-                                 graceturn = true;
-                              }
+                              tempcard.transform.SetParent(cardcollection1); 
                            break;
 
                            case 1:
                               tempcard.transform.SetParent(cardcollection2);
-                              playerturn -= 1;
-                              if(!graceturn)
-                              {
-                                 graceturn = true;
-                              }
                            break;
                        }
                        break;
@@ -182,8 +172,6 @@ public class GameController : MonoBehaviour
                        break;
                    }
                }
-
-               else {graceturn = false;}
                cardarea.GetChild(index).GetComponent<Image>().sprite = cardlist[index].Image;
                if(canperformturn)
                {
@@ -194,10 +182,25 @@ public class GameController : MonoBehaviour
 
                if(multiplayer)
                {
-                   if(!graceturn)
+                   switch(correctmatch)
                    {
-                       playerturn += 1;
-                       graceturn = true;
+                      case true:
+                         graceturn = true;
+                      break;
+
+                      case false:
+                         switch(graceturn)
+                         {
+                           case true:
+                              graceturn = false;
+                           break;
+   
+                           case false:
+                              playerturn += 1;
+                              graceturn = true;
+                           break;
+                         }
+                      break;
                    }
                    playerturn = (int)Mathf.Repeat(playerturn, 2);
                    switch(playerturn)
@@ -223,7 +226,7 @@ public class GameController : MonoBehaviour
            GameObject button = Instantiate(prefab3);
            button.name = "" + i;
            button.transform.SetParent(WinScreen.transform, false);
-           button.transform.position += new Vector3(button.GetComponent<RectTransform>().sizeDelta.x * i,0,0);
+           button.transform.position += new Vector3((button.GetComponent<RectTransform>().sizeDelta.x * i) + 160 * i,0,0);
        }
 
        transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = "Spela Igen";
