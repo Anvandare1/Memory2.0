@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
     private Text turncoutner;
     public void Start()
     {
-        graceturn = true;
+        graceturn = false;
         canperformturn = true;
         memory = null;
         prefab = Resources.Load<GameObject>("Prefabs/Card");
@@ -185,19 +185,19 @@ public class GameController : MonoBehaviour
                    switch(correctmatch)
                    {
                       case true:
-                         graceturn = true;
+                         //graceturn = true;
                       break;
 
                       case false:
                          switch(graceturn)
                          {
                            case true:
-                              graceturn = false;
+                              //graceturn = false;
                            break;
    
                            case false:
                               playerturn += 1;
-                              graceturn = true;
+                              //graceturn = true;
                            break;
                          }
                       break;
