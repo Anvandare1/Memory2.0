@@ -101,6 +101,18 @@ public class GameController : MonoBehaviour
         TeamSelection.SetActive(false);
         Game.SetActive(true);
 
+        if(!multiplayer)
+        {
+            transform.GetChild(0).GetChild(2).GetChild(0).gameObject.SetActive(false);
+            turncoutner.text = "";
+        }
+
+        else
+        {
+            turncoutner.text = "Drag: Lag " + team1 + " (Spelare 1)";
+            transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<Image>().color = new Color(0.75f, 0.75f, 0.75f, 0.75f);
+        }
     }
 
     public void SelectMode(bool mutiplayer)
@@ -203,14 +215,20 @@ public class GameController : MonoBehaviour
                       break;
                    }
                    playerturn = (int)Mathf.Repeat(playerturn, 2);
+                   Color color1 = new Color(1, 1, 1, 1);
+                   Color color2 = new Color(0.75f, 0.75f, 0.75f, 0.75f);
                    switch(playerturn)
                    {
                       case 0:
                          turncoutner.text = "Drag: Lag " + team1 + " (Spelare 1)";
+                         transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = color1;
+                         transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<Image>().color = color2;
                       break;
 
                       case 1:
                          turncoutner.text = "Drag: Lag " + team2 + " (Spelare 2)";
+                         transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Image>().color = color2;
+                         transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<Image>().color = color1;
                       break;
                    }
                }
