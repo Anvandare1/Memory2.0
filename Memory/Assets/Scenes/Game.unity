@@ -832,8 +832,8 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 250, y: 250}
   m_Spacing: {x: 75, y: 75}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!114 &763501181
 MonoBehaviour:
   m_ObjectHideFlags: 0
